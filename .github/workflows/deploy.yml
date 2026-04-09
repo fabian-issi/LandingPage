@@ -14,6 +14,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: mi-app   # 👈 ESTO SOLUCIONA TODO
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,15 +33,15 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Upload artifact
+      - name: Upload
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./mi-app/dist   # 👈 IMPORTANTE
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         uses: actions/deploy-pages@v4
